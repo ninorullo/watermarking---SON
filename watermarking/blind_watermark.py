@@ -339,7 +339,6 @@ def embed_fixed_key(img_filename, wm_filename, out_filename):
     bwm1.embed(out_filename)
 
 def extract_fixed_key(img_filename, wm_filename, out_filename):
-
     wm = cv_imread(wm_filename)[:, :, 0]
     wm_shape = wm.shape[:2]
     
