@@ -15,5 +15,5 @@ class ImageForm(FlaskForm):
 
 class ExtractForm(FlaskForm):
     image = FileField(validators=[FileRequired(), FileAllowed(['jpg', 'png'], 'Images only!')])
-    # signature_len = h5fields.IntegerField('Signature length', widget=h5widgets.NumberInput(min=2, max=20))
+    key = h5fields.IntegerField('Key', widget=h5widgets.NumberInput(min=10000000, max=99999999))
     submit = SubmitField('Extract')
