@@ -2,6 +2,7 @@ import numpy as np
 import cv2
 from pywt import dwt2, idwt2
 import os
+import random
 from .tools import cv_imread, cv_imwrite
 
 
@@ -338,12 +339,32 @@ def embed_fixed_key(img_filename, wm_filename, out_filename):
     bwm1.embed(out_filename)
 
 def extract_fixed_key(img_filename, wm_filename, out_filename):
+
     wm = cv_imread(wm_filename)[:, :, 0]
     wm_shape = wm.shape[:2]
     
     bwm1 = watermark(4399,2333,32, wm_shape=wm_shape)
     bwm1.extract(img_filename, out_filename)
-        
+
+def embed_with_key(img_filename, wm_filename, out_filename):
+    key1 = random.randint(1000, 10000)
+    key2 = random.randint(1000, 10000)
+    bwm1 = watermark(key1,key2,32)
+    bwm1.read_ori_img(img_filename)
+    bwm1.read_wm(wm_filename)
+    bwm1.embed(out_filename)
+    return str(key1)+str(key2)
+
+def extract_with_key(key, img_filename, wm_filename, out_filename):
+    key1 = key // 10000
+    key2 = key % 10000
+    wm = cv_imread(wm_filename)[:, :, 0]
+    wm_shape = wm.shape[:2]
+    
+    bwm1 = watermark(key1,key2,32, wm_shape=wm_shape)
+    bwm1.extract(img_filename, out_filename)
+
+    
 if __name__=="__main__":
     bwm1 = watermark(4399,2333,32)
     bwm1.read_ori_img("pic/lena_grey.png")
@@ -362,3 +383,4 @@ if __name__=="__main__":
     # bwm2.extract('out.png','./bwm2_out.png')
 
         
+
