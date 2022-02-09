@@ -9,6 +9,10 @@
     {% if messages %}
     <image src="{{ url_for('static', filename='images/' + messages.filename) }}" style="max-width:300px;height:auto" class="rounded mx-auto d-block">
       <br/>
+      {% if messages.key %}
+      Key = {{ messages.key }}
+      {% endif %}
+      <br/>
       <a class="btn btn-toggle align-items-center rounded collapsed" href="{{ url_for('static', filename='images/' + messages.filename) }}" download rel="noopener noreferrer" target="_blank">
 	Download
       </a>
@@ -18,5 +22,3 @@
   </div>
 </div>
 {% endblock content %}
-    
-
