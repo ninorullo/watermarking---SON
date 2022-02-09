@@ -5,7 +5,7 @@ from forms import ImageForm, ExtractForm
 from werkzeug.utils import secure_filename
 
 from watermarking.signature_maker import generate_signature
-from watermarking.blind_watermark import embed_fixed_key,extract_fixed_key
+from watermarking.blind_watermark import embed_fixed_key,extract_fixed_key,embed_with_key,extract_with_key
 
 app = Flask(__name__)
 
@@ -31,10 +31,10 @@ def embed():
         f.save(filename_path)
 
         out_path = os.path.join('static', 'images', "wm_"+filename)
-        embed_fixed_key(filename_path, wm_path, out_path)
+        key = embed_with_key(filename_path, wm_path, out_path)
         
         flash('Image watermarked successfully!', 'success')
-        messages = json.dumps({"filename": "wm_"+filename})
+        messages = json.dumps({"filename": "wm_"+filename,"key": key})
         session['messages'] = messages
         return redirect(url_for('result', messages=messages))
 
@@ -46,7 +46,7 @@ def extract():
     form = ExtractForm()
 
     if form.validate_on_submit():
-        #s = form.signature_len.data
+        key = form.key.data
         wm_path = os.path.join('static', 'utils', 'reference.png')
         #generate_signature('A'*s, wm_path)
         
@@ -56,7 +56,7 @@ def extract():
         f.save(filename_path)
 
         out_path = os.path.join('static', 'images', "extracted_"+filename)
-        extract_fixed_key(filename_path, wm_path, out_path)
+        extract_with_key(key, filename_path, wm_path, out_path)
         
         flash('Watermarked extracted successfully!', 'success')
         messages = json.dumps({"filename": "extracted_"+filename})
