@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% set active_page = "embed" %}
+{% block content %}
+
+
+<div class="text-center">
+  <h3 class="fw-bold">Result</h3>
+  <div class="col-lg-6 mx-auto text-center">
+    {% if messages %}
+    <image src="{{ url_for('static', filename='images/' + messages.filename) }}" style="max-width:300px;height:auto" class="rounded mx-auto d-block">
+      <br/>
+      <a class="btn btn-toggle align-items-center rounded collapsed" href="{{ url_for('static', filename='images/' + messages.filename) }}" download rel="noopener noreferrer" target="_blank">
+	Download
+      </a>
+      {% else %}
+      Test
+      {% endif %}
+  </div>
+</div>
+{% endblock content %}
+    
+

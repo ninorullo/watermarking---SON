@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% set active_page = "embed" %}
+{% block content %}
+
+
+<div class="px-4 py-5 my-5 text-center">
+  <h1 class="display-5 fw-bold">Embed watermark</h1>
+  <div class="col-lg-6 mx-auto">
+    <p class="lead mb-4">
+      <div class="card card-body bg-light">
+	<form method="POST" enctype="multipart/form-data" action="">
+	  {{ form.hidden_tag() }}
+	  <fieldset class="form-group">
+	    <div class="form-group">
+	      {{ form.image.label(class="form-control-label") }}
+	      {{ form.image(class="form-control") }}
+	    </div>
+	    <br/>
+	    <div class="form-group">
+	      {{ form.signature.label(class="form-control-label") }}
+	      {{ form.signature(class="form-control form-control-lg") }}
+	    </div>
+	    <br/>
+      </div>
+      <br/>
+      <div class="form-group d-grid gap-2 d-sm-flex justify-content-sm-center">
+	{{ form.submit(class="btn btn-primary btn-lg px-4 gap-3") }}
+      </div>
+      </fieldset>
+      </form>
+    </p>
+  </div>
+</div>
+{% endblock content %}
+    
+
