@@ -359,7 +359,6 @@ def extract_with_key(key, img_filename, wm_filename, out_filename):
     key2 = key % 10000
     wm = cv_imread(wm_filename)[:, :, 0]
     wm_shape = wm.shape[:2]
-    
     bwm1 = watermark(key1,key2,32, wm_shape=wm_shape)
     bwm1.extract(img_filename, out_filename)
 
